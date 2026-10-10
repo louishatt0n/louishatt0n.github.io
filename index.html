@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Louis Hatton</title>
-<meta name="description" content="Quantitative research analyst. Production Python data services and computational chemistry.">
+<meta name="description" content="Research analyst in London. Python, trading research and computational chemistry.">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="Louis Hatton">
-<meta property="og:description" content="Production Python data services and computational chemistry.">
+<meta property="og:description" content="Python, trading research and computational chemistry.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0b0b'/><text y='.92em' x='.14em' font-size='76' fill='%2300e07a' font-family='monospace'>L</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,14 +69,14 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
 
 <h1>Louis Hatton</h1>
 <p class="intro">
-  Quantitative research analyst in London. Oxford <b>MChem Chemistry</b>.
+  Research analyst in London. Oxford <b>MChem Chemistry</b>.
 </p>
 <p class="intro">
   I am obsessed with using my Chemistry degree to tackle the biggest problems: breaking a system down,
   working out what governs it, then building the tool to act upon it. That has run from
-  <b>DFT and Monte Carlo structure determination</b> on a supercompute cluster, to
+  <b>DFT and Monte Carlo structure determination</b> on a supercomputing cluster, to
   <b>smart contracts</b> for a capital markets protocol, to
-  <b>production Python services</b> for a Series B FinTech.
+  <b>Python services and trading research</b> for a FinTech.
 </p>
 <div class="links">
   <a href="https://www.linkedin.com/in/louishatton/" target="_blank" rel="noopener">LinkedIn</a>
@@ -86,9 +86,11 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
 <section>
   <h2>Stack</h2>
   <div class="row"><div class="k">Languages</div><div>Python, SQL, Bash, LaTeX</div></div>
+  <div class="row"><div class="k">Quant</div><div>Probability, statistics, bootstrap, event studies, backtesting</div></div>
   <div class="row"><div class="k">Libraries</div><div>pandas, NumPy, SciPy, Matplotlib, pytest</div></div>
   <div class="row"><div class="k">Data</div><div>PostgreSQL, Alembic, Kafka</div></div>
   <div class="row"><div class="k">Infra</div><div>Unix, Docker, Git, GitLab CI/CD</div></div>
+  <div class="row"><div class="k">AI</div><div>LLM agents (Anthropic, OpenAI, Gemini APIs), Modal</div></div>
   <div class="row"><div class="k">Scientific</div><div>DFT, electronic structure, Monte Carlo, symmetry-reduced enumeration</div></div>
 </section>
 
@@ -127,24 +129,31 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
 </section>
 
 <section>
-  <h2>Engineering — Intropic</h2>
+  <h2>Markets &amp; Engineering — Intropic</h2>
   <div class="meta">
-    <span class="org">Quantitative Research Analyst, Corporate Actions</span>
+    <span class="org">Research Analyst, Corporate Actions</span>
   </div>
 
   <div class="item">
-    <h3>Automated forecasting through data scraping</h3>
-    <p>A Python service shipped end to end: Postgres schema design, Alembic migrations for
-       versioned rollout, Kafka consumers driving the event loop, containerised and released
-       through GitLab CI/CD. Runs unattended in production.</p>
-    <p class="res">First-pass forecasts published within 300s of event detection.</p>
+    <h3>Automated share-offering detection</h3>
+    <p>Led a Python service from design to deployment: Postgres schema design, Alembic migrations
+       for versioned rollout, an LLM classifier for company filings and a Kafka consumer,
+       containerised and released through GitLab CI/CD to staging.</p>
+    <p class="res">Cut the alerts analysts would need to check by 84% in testing.</p>
   </div>
 
   <div class="item">
     <h3>Event-study compute engine</h3>
     <p>Batch processing over 163,000 daily price records spanning 863 events — clustered
        grouping, resampling and placebo-window generation, written in pandas and NumPy.</p>
-    <p class="res">Scaled to the full history and used to validate a production signal.</p>
+    <p class="res">A pre-registered study of how forced index-fund trading moves prices around mergers.</p>
+  </div>
+
+  <div class="item">
+    <h3>Strategy backtesting</h3>
+    <p>Designed and directed backtests of event-driven trading strategies around share offerings:
+       pre-registered plans, position caps, realistic trading costs and capacity limits.</p>
+    <p class="res">Built-in checks that every trade could actually have been placed at the time.</p>
   </div>
 
   <div class="item">
@@ -152,14 +161,32 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
     <p>Reusable Python code for model calibration and validation: SciPy L-BFGS-B optimisation
        in log space, size-stratified regimes, bootstrap resampling and FDR correction across
        six independent test frameworks.</p>
-    <p class="res">R² of 0.88–0.93 on calibration; the resulting model adopted for production forecasts.</p>
+    <p class="res">Used to model how trading volume dies down after large US IPOs.</p>
   </div>
 </section>
 
 <section>
-  <h2>Founding — Oxford University Innovation</h2>
+  <h2>Competition — London AI x Science Hackathon</h2>
   <div class="meta">
-    <span class="org">Founder &amp; Engineer</span>
+    <span class="org">Winner, Auto-Research Track</span>
+    <span class="when">Oct 2026</span>
+  </div>
+
+  <div class="item">
+    <h3>Self-improving research agents</h3>
+    <p>Team of three, three days; I wrote 49 of the 68 commits. AI agents that write, test and
+       improve their own code, with parallel evolutionary search and an LLM step that merges the
+       strongest ideas across searches.</p>
+    <p class="res">Found quantum circuits needing 50% fewer gates than a published rival system.</p>
+    <p><a href="https://github.com/Geno20261003/aixscience_hackathon" target="_blank" rel="noopener">Code</a></p>
+  </div>
+</section>
+
+<section>
+  <h2>Founding — BlockScale</h2>
+  <div class="meta">
+    <span class="org">Founder &amp; Engineer, Oxford University Innovation Incubator</span>
+    <span class="when">Oct 2024 – Jun 2025</span>
   </div>
 
   <div class="item">
@@ -185,7 +212,7 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
 <section>
   <h2>Hobbies</h2>
   <div class="row"><div class="k">Chess</div><div>97th percentile on Chess.com</div></div>
-  <div class="row"><div class="k">Poker</div><div>President, St Hugh's Poker Society</div></div>
+  <div class="row"><div class="k">Poker</div><div>President, St Hugh's Poker Society; online, 4.81 big blinds per 100 hands over 74k tracked hands</div></div>
   <div class="row"><div class="k">Skiing</div><div>Level 9 advanced</div></div>
   <div class="row"><div class="k">Languages</div><div>French (B1)</div></div>
 </section>
