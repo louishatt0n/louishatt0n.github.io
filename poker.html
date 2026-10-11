@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poker Win Rate — Louis Hatton</title>
+<meta name="description" content="74,000 hands at 4.81 bb/100: skill or luck? An interactive calculator for poker win-rate confidence intervals and risk of ruin.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0b0b'/><text y='.92em' x='.14em' font-size='76' fill='%2300e07a' font-family='monospace'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+<a class="back" href="./">← Louis Hatton</a>
+<h1>Is my poker win rate real?</h1>
+<p class="lede">Telling a winning player from a lucky one, using my own numbers.</p>
+
+<div class="stats">
+  <div class="stat"><b>74,146</b><span>hands tracked</span></div>
+  <div class="stat"><b>4.81</b><span>big blinds won per 100 hands</span></div>
+  <div class="stat"><b>$40 → +$367</b><span>starting bankroll → profit</span></div>
+</div>
+
+<section class="prose">
+  <h2>The record</h2>
+  <p>Six-handed no-limit hold'em online, January to April 2026. I moved up from $0.01/$0.02 to
+     $0.10/$0.20 blinds, played four tables at a time, and only played a stake while my bankroll held
+     at least 20 buy-ins for it. Win rate is measured in big blinds won per 100 hands (bb/100), so it
+     compares across stakes.</p>
+  <p>The money is real. The question is whether it shows an edge, or a break-even player who ran well.</p>
+</section>
+
+<section class="prose">
+  <h2>Why it's hard to tell</h2>
+  <p>A single hand can swing by a hundred big blinds; skill is a small drift underneath. Trackers
+     measure the swing as a <b>standard deviation</b> in bb/100, and six-handed players typically sit
+     around 80–110. The calculator assumes 90; change it to see how much the answer depends on it.</p>
+  <p>The <b>standard error</b> is how much a measured win rate would move if you replayed the same
+     number of hands with different cards:</p>
+  <div class="formula">standard error = standard deviation ÷ √(hands ÷ 100)
+               = 90 ÷ √741 ≈ 3.3 bb/100
+
+95% range     ≈ 4.81 ± 1.96 × 3.3  =  −1.7 to +11.3 bb/100</div>
+  <p>The range includes zero, so 74,000 hands can't rule out break-even. That holds for any standard
+     deviation above about 67, which covers almost every six-handed player.</p>
+</section>
+
+<section>
+  <h2>Try it</h2>
+  <div class="tool">
+    <div class="inputs">
+      <label>Win rate (bb/100)<input id="wr" type="number" step="0.01" value="4.81" inputmode="decimal"></label>
+      <label>Standard deviation (bb/100)<input id="sd" type="number" step="1" min="1" value="90" inputmode="decimal"></label>
+      <label>Hands played<input id="hands" type="number" step="1000" min="100" value="74146" inputmode="numeric"></label>
+      <label>Bankroll (buy-ins of 100 bb)<input id="br" type="number" step="1" min="1" value="20" inputmode="decimal"></label>
+    </div>
+    <div class="outputs" aria-live="polite">
+      <div class="out"><span>Standard error</span><b id="o-se">—</b></div>
+      <div class="out"><span>95% range for the true win rate</span><b id="o-ci">—</b></div>
+      <div class="out"><span>Hands needed to rule out break-even</span><b id="o-need">—</b></div>
+      <div class="out"><span>Risk of going broke at one stake, never moving down</span><b id="o-ror">—</b></div>
+      <p class="verdict" id="o-verdict"></p>
+    </div>
+    <svg class="chart" id="chart" viewBox="0 0 680 300" role="img" aria-label="Simulated winnings of 20 players with the chosen win rate"></svg>
+    <div class="key">
+      <span><i style="border-color:var(--yellow);border-top-style:dashed"></i>expected</span>
+      <span><i style="border-color:var(--muted);border-top-style:dashed"></i>95% of outcomes</span>
+      <span><i style="border-color:var(--green)"></i>simulated player ahead</span>
+      <span><i style="border-color:var(--red)"></i>behind</span>
+    </div>
+    <div class="chart-foot">
+      <p id="o-sim"></p>
+      <button id="rerun" type="button">Run again</button>
+    </div>
+  </div>
+</section>
+
+<section class="prose">
+  <h2>Luck in all-in pots</h2>
+  <p>Part of the noise can be measured directly. PokerTracker's <b>all-in adjusted</b> result
+     replaces the outcome of every pot where a player was all-in before the last card with what
+     that pot was worth on average. Mine is $335, against $367 actually won: about $33 of the profit
+     was luck in all-in pots.</p>
+</section>
+
+<section class="prose">
+  <h2>What I take from it</h2>
+  <ul>
+    <li><b>The result is real; the edge isn't proven.</b> At this win rate and typical variance, ruling
+        out break-even at 95% confidence takes about 135,000 hands.</li>
+    <li><b>Judge decisions, not results.</b> Over a few thousand hands, results mostly measure variance,
+        so a session is better judged by the quality of its decisions than by the money won.</li>
+    <li><b>Bankroll rules exist to survive the noise.</b> Even with a genuine 4.81 bb/100 edge, a
+        20 buy-in bankroll kept at one stake has about a 9% chance of ever going broke. Moving down a
+        stake when the bankroll shrinks is what keeps that risk small.</li>
+  </ul>
+  <p>It's the same question as my <a href="backtester.html">Bitcoin strategy test</a>: a good-looking
+     result over a short sample is weak evidence until the sample is big enough.</p>
+</section>
+
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var C = { green: "#00e07a", red: "#ff6b5e", yellow: "#ffd400", muted: "#8b928f", line: "#222522", fg: "#c9cecb" };
+  var PLAYERS = 20, Z = 1.96;
+
+  function normal() {
+    var u = 0, v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+  function signed(x, d) { return (x < 0 ? "−" : "+") + Math.abs(x).toFixed(d); }
+  function compact(x) {
+    var a = Math.abs(x), s = x < 0 ? "−" : "";
+    if (a >= 1e6) return s + +(a / 1e6).toFixed(1) + "m";
+    if (a >= 1e3) return s + +(a / 1e3).toFixed(1) + "k";
+    return s + Math.round(a);
+  }
+  function niceStep(range, target) {
+    var raw = range / target, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p;
+    return p * (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10);
+  }
+  function read() {
+    return { wr: parseFloat($("wr").value), sd: parseFloat($("sd").value),
+             n: Math.round(parseFloat($("hands").value)), br: parseFloat($("br").value) };
+  }
+  function valid(v) {
+    return [v.wr, v.sd, v.n, v.br].every(isFinite) && v.sd > 0 && v.n >= 100 && v.n <= 1e7 && v.br > 0;
+  }
+
+  function stats(v) {
+    var se = v.sd / Math.sqrt(v.n / 100), lo = v.wr - Z * se, hi = v.wr + Z * se;
+    $("o-se").textContent = se.toFixed(2) + " bb/100";
+    $("o-ci").textContent = signed(lo, 1) + " to " + signed(hi, 1) + " bb/100";
+    if (v.wr > 0) {
+      var need = Math.ceil(100 * Math.pow(Z * v.sd / v.wr, 2));
+      $("o-need").textContent = "about " + compact(need) + " hands";
+      var ror = Math.exp(-2 * v.wr * v.br * 100 / (v.sd * v.sd)) * 100;
+      $("o-ror").textContent = ror < 0.1 ? "under 0.1%" : (ror < 10 ? ror.toFixed(1) : Math.round(ror)) + "%";
+    } else {
+      $("o-need").textContent = "never, without a positive win rate";
+      $("o-ror").textContent = "100%";
+    }
+    $("o-verdict").textContent = lo > 0
+      ? "Zero is outside the range: a result this strong is unlikely to be luck."
+      : hi < 0 ? "The whole range is below zero: most likely a losing player."
+      : "Zero is inside the range: this sample can't rule out a break-even player.";
+  }
+
+  function draw(v) {
+    var W = 680, H = 300, P = { l: 58, r: 12, t: 12, b: 36 };
+    var blocks = Math.max(1, Math.round(v.n / 100)), every = Math.max(1, Math.floor(blocks / 240));
+    var paths = [], ymin = 0, ymax = 0, behind = 0;
+    for (var p = 0; p < PLAYERS; p++) {
+      var c = 0, pts = [[0, 0]];
+      for (var b = 1; b <= blocks; b++) {
+        c += v.wr + v.sd * normal();
+        if (b % every === 0 || b === blocks) pts.push([b * 100, c]);
+      }
+      if (c < 0) behind++;
+      paths.push(pts);
+      pts.forEach(function (q) { ymin = Math.min(ymin, q[1]); ymax = Math.max(ymax, q[1]); });
+    }
+    var band = [];
+    for (var i = 0; i <= 80; i++) {
+      var h = v.n * i / 80, m = v.wr * h / 100, d = Z * v.sd * Math.sqrt(h / 100);
+      band.push([h, m - d, m + d, m]);
+      ymin = Math.min(ymin, m - d); ymax = Math.max(ymax, m + d);
+    }
+    var pad = (ymax - ymin) * 0.05; ymin -= pad; ymax += pad;
+    var X = function (h) { return P.l + (W - P.l - P.r) * h / v.n; };
+    var Y = function (y) { return P.t + (H - P.t - P.b) * (ymax - y) / (ymax - ymin); };
+    var line = function (pts, k) { return pts.map(function (q) { return X(q[0]).toFixed(1) + "," + Y(q[k]).toFixed(1); }).join(" "); };
+    var s = "";
+    var ys = niceStep(ymax - ymin, 5);
+    for (var t = Math.ceil(ymin / ys) * ys; t <= ymax; t += ys) {
+      s += '<line x1="' + P.l + '" x2="' + (W - P.r) + '" y1="' + Y(t) + '" y2="' + Y(t) + '" stroke="' + C.line + '"/>';
+      s += '<text x="' + (P.l - 8) + '" y="' + (Y(t) + 4) + '" fill="' + C.muted + '" font-size="11" text-anchor="end">' + compact(t) + "</text>";
+    }
+    var xs = niceStep(v.n, 5);
+    for (var x = 0; x <= v.n; x += xs) {
+      s += '<text x="' + X(x) + '" y="' + (H - P.b + 18) + '" fill="' + C.muted + '" font-size="11" text-anchor="middle">' + compact(x) + "</text>";
+    }
+    s += '<text x="' + (W - P.r) + '" y="' + (H - 3) + '" fill="' + C.muted + '" font-size="11" text-anchor="end">hands</text>';
+    s += '<text x="12" y="' + (P.t + 4) + '" fill="' + C.muted + '" font-size="11" transform="rotate(-90 12 ' + (P.t + 4) + ')" text-anchor="end">big blinds won</text>';
+    s += '<line x1="' + P.l + '" x2="' + (W - P.r) + '" y1="' + Y(0) + '" y2="' + Y(0) + '" stroke="' + C.muted + '" stroke-width="1"/>';
+    paths.forEach(function (pts) {
+      var col = pts[pts.length - 1][1] < 0 ? C.red : C.green;
+      s += '<polyline points="' + line(pts, 1) + '" fill="none" stroke="' + col + '" stroke-opacity="0.55" stroke-width="1.1"/>';
+    });
+    s += '<polyline points="' + line(band, 1) + '" fill="none" stroke="' + C.muted + '" stroke-dasharray="5 4" stroke-width="1.3"/>';
+    s += '<polyline points="' + line(band, 2) + '" fill="none" stroke="' + C.muted + '" stroke-dasharray="5 4" stroke-width="1.3"/>';
+    s += '<polyline points="' + line(band, 3) + '" fill="none" stroke="' + C.yellow + '" stroke-dasharray="6 4" stroke-width="1.6"/>';
+    $("chart").innerHTML = s;
+    $("o-sim").textContent = behind + " of " + PLAYERS + " simulated players with a true " + v.wr +
+      " bb/100 win rate were behind after " + v.n.toLocaleString("en-GB") + " hands.";
+  }
+
+  function update() {
+    var v = read();
+    if (!valid(v)) {
+      ["o-se", "o-ci", "o-need", "o-ror"].forEach(function (id) { $(id).textContent = "—"; });
+      $("o-verdict").textContent = "Enter a standard deviation above 0, 100 to 10 million hands, and a bankroll above 0.";
+      return;
+    }
+    stats(v); draw(v);
+  }
+
+  ["wr", "sd", "hands", "br"].forEach(function (id) { $(id).addEventListener("input", update); });
+  $("rerun").addEventListener("click", update);
+  update();
+})();
+</script>
+</body>
+</html>

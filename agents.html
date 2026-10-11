@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Agents — Louis Hatton</title>
+<meta name="description" content="Winner, Auto-Research Track, London AI x Science Hackathon: AI agents that write, test and improve their own algorithms.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0b0b'/><text y='.92em' x='.14em' font-size='76' fill='%2300e07a' font-family='monospace'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+<a class="back" href="./">← Louis Hatton</a>
+<h1>Self-improving research agents</h1>
+<p class="lede">Winner, Auto-Research Track, London AI x Science Hackathon, October 2026.</p>
+
+<div class="stats">
+  <div class="stat"><b>50% fewer</b><span>two-qubit gates than a published rival</span></div>
+  <div class="stat"><b>3 days</b><span>team of three</span></div>
+  <div class="stat"><b>49 of 68</b><span>commits written by me</span></div>
+</div>
+
+<section class="prose">
+  <h2>The idea</h2>
+  <p>Much of research is a loop: propose an idea, test it, keep what works, repeat. We built a system
+     that runs that loop by itself. AI models write programs that attack a hard optimisation problem, a
+     fixed judge scores every attempt, and the best ideas are kept, combined and improved over many
+     rounds.</p>
+</section>
+
+<section class="prose">
+  <h2>The problem we pointed it at</h2>
+  <p>Simulating electrons on a quantum computer. To simulate a grid of interacting electrons (the
+     <b>Fermi-Hubbard model</b>, a standard benchmark for quantum simulation), each time step has to be
+     compiled into gates on a grid of qubits. The two-qubit gates are the slow, error-prone part, so
+     the goal was simple to state: <b>as few two-qubit gates as possible</b> per term of the model.</p>
+  <p>Agents searched on small grids, were checked on a larger hidden one, and were scored at the end on
+     a still larger grid that no part of the search had ever seen.</p>
+</section>
+
+<section class="prose">
+  <h2>How it works</h2>
+  <ol>
+    <li><b>Fix the rules first.</b> Before any search, the problem and its scoring are frozen, and the
+        judge's code is fingerprinted. If the scoring changes mid-run, the run stops.</li>
+    <li><b>Start from what's known.</b> A literature step gathers standard published approaches as
+        starting points.</li>
+    <li><b>Search in parallel islands.</b> Independent groups of agents each evolve their own line of
+        programs: propose an edit, score it, keep it if it's better, and back up when a line stalls.</li>
+    <li><b>Choose the AI model like a bandit.</b> Different models do better at different moments.
+        Picking which one to call is treated as a <b>multi-armed bandit</b>, like choosing between slot
+        machines with unknown payouts: keep backing whichever model is producing the most improvement
+        for its cost, while still trying the others.</li>
+    <li><b>Tune the numbers separately.</b> Numeric settings inside a promising program are tuned
+        automatically, so the models spend their effort on ideas rather than constants.</li>
+    <li><b>Cross-pollinate.</b> Each round, the leading program is paired with rivals that beat it on
+        particular cases, and an agent merges their strengths into new hybrids.</li>
+    <li><b>Keep variety.</b> Survivors are picked to be good in different ways, not only for the top
+        score, so the search doesn't collapse onto one idea.</li>
+    <li><b>Score once on unseen data.</b> The finalists are scored a single time on the sealed test,
+        then written up.</li>
+  </ol>
+</section>
+
+<section class="prose">
+  <h2>Keeping the agents honest</h2>
+  <p>Point an optimiser at a score and it will look for ways to game the score instead of solving the
+     problem. Three guards against that:</p>
+  <ul>
+    <li><b>A judge the agents can't touch.</b> The fingerprinted scoring code means any change, by an
+        agent or by accident, halts the run.</li>
+    <li><b>An exact check of the physics.</b> Every circuit is verified to really implement the model,
+        using algebra rather than simulating the quantum state. Simulation grows exponentially with
+        size; the algebraic check works at any grid size.</li>
+    <li><b>The same split as a backtest.</b> Agents only see feedback on development cases, selection
+        uses separate validation cases, and the final score comes from a sealed test read once. It's
+        the problem from my <a href="backtester.html">Bitcoin strategy test</a> again: a search that
+        sees its own test set will fit noise.</li>
+  </ul>
+  <p>We also built a neutral judge to compare our system with open-source rivals on unseen cases,
+     reporting confidence intervals rather than single best scores.</p>
+</section>
+
+<section class="prose">
+  <h2>What I built</h2>
+  <p>I wrote 49 of the 68 commits, mainly on:</p>
+  <ul>
+    <li><b>The live dashboard</b> (React, TypeScript): each island's progress round by round, the
+        family tree of every program, and the lessons the agents logged as they went.</li>
+    <li><b>The cloud orchestration</b> (Python, Modal): each run gets a single-use coordinator; if it
+        crashes, a fresh one takes over the run where it stopped, with up to 16 model calls in
+        parallel.</li>
+    <li><b>The API, the benchmark harness and the automated tests</b> (29 test files).</li>
+  </ul>
+</section>
+
+<section class="prose">
+  <h2>Result</h2>
+  <p>The system's best circuits needed <b>50% fewer two-qubit gates per term</b> than a published rival
+     system on the same benchmark, and the project won the Auto-Research Track.</p>
+  <p><a href="https://github.com/Geno20261003/aixscience_hackathon" target="_blank" rel="noopener">Code on GitHub</a></p>
+</section>
+
+</main>
+</body>
+</html>

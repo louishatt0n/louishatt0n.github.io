@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bitcoin Backtester — Louis Hatton</title>
+<meta name="description" content="A walk-forward, out-of-sample test of three Bitcoin trading strategies after costs, with bootstrap confidence intervals.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0b0b'/><text y='.92em' x='.14em' font-size='76' fill='%2300e07a' font-family='monospace'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+
+<a class="back" href="./">← Louis Hatton</a>
+<h1>Testing Bitcoin strategies out of sample</h1>
+<p class="lede">Most backtests look good because they were tuned on the data they are judged on. This one
+   judges every strategy only on data it has never seen.</p>
+
+<div class="stats">
+  <div class="stat"><b>2,474</b><span>days out of sample, 2020–2026</span></div>
+  <div class="stat"><b>0.15%</b><span>cost per trade side</span></div>
+  <div class="stat"><b>0.89 vs 0.59</b><span>momentum vs buy-and-hold Sharpe</span></div>
+</div>
+
+<section class="prose">
+  <h2>The question</h2>
+  <p>Can simple trading rules beat just holding Bitcoin, once they only use information available at
+     the time and pay for every trade? Three rules, each either long Bitcoin or in cash (no shorting):</p>
+  <ul>
+    <li><b>Momentum:</b> hold Bitcoin while its return over a recent window (5 to 180 days) is positive.</li>
+    <li><b>Moving-average crossover:</b> hold while a short-term average price is above a long-term one.</li>
+    <li><b>Mean reversion:</b> hold only while the price sits unusually far below its recent average,
+        betting on a bounce.</li>
+  </ul>
+</section>
+
+<section class="prose">
+  <h2>How it's tested</h2>
+  <ul>
+    <li><b>Walk-forward.</b> Every six months, each strategy picks its best setting using only the
+        previous 24 months, then trades the next six months, which it has never seen. The six-month
+        slices join into one out-of-sample record from January 2020 to October 2026.</li>
+    <li><b>Costs on every trade:</b> 0.15% per side for commission and slippage.</li>
+    <li><b>Written down first.</b> The test design was committed before the first run, so the method
+        couldn't drift towards a nicer answer.</li>
+    <li><b>A confidence interval, not just a number.</b> The <b>Sharpe ratio</b> is return per unit of
+        risk (annual return ÷ annual volatility). A <b>block bootstrap</b> resamples the daily returns in
+        20-day chunks thousands of times, keeping the streaks in the data, to see how much the Sharpe
+        difference against buy-and-hold could move by chance.</li>
+  </ul>
+</section>
+
+<section class="prose">
+  <h2>Result</h2>
+  <figure>
+    <img src="img/oos_equity.png" alt="Out-of-sample growth of one dollar for buy-and-hold Bitcoin and the three walk-forward strategies, 2020 to 2026, with drawdowns below" loading="lazy">
+    <figcaption>Growth of $1 out of sample, after costs (log scale). Below: the fall from each line's
+      previous peak.</figcaption>
+  </figure>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Strategy</th><th>Annual return</th><th>Sharpe</th><th>Worst fall</th><th>Time in market</th><th>Sharpe vs hold, 95% CI</th></tr></thead>
+      <tbody>
+        <tr><td>Buy and hold BTC</td><td>+43.3%</td><td>0.59</td><td>−76.6%</td><td>100%</td><td></td></tr>
+        <tr class="hl"><td>Momentum</td><td>+44.8%</td><td>0.89</td><td>−59.5%</td><td>56%</td><td>−0.26 to +0.90</td></tr>
+        <tr><td>MA crossover</td><td>+27.2%</td><td>0.52</td><td>−53.6%</td><td>54%</td><td>−0.59 to +0.52</td></tr>
+        <tr><td>Mean reversion</td><td>−7.1%</td><td>−0.22</td><td>−54.5%</td><td>13%</td><td>−1.52 to −0.10</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Momentum matched Bitcoin's return while in the market only 56% of the time, with a smaller worst
+     fall (−60% against −77%) and a higher Sharpe (0.89 against 0.59). But the 95% interval for the
+     Sharpe difference runs from −0.26 to +0.90. It includes zero, so over this sample the edge
+     <b>can't be told apart from luck</b>. Mean reversion lost money and was clearly worse than holding.</p>
+</section>
+
+<section class="prose">
+  <h2>Did tuning help?</h2>
+  <figure>
+    <img src="img/train_vs_test.png" alt="Scatter of training Sharpe against next-six-month Sharpe for each walk-forward window; points show no relationship with the diagonal" loading="lazy">
+    <figcaption>Each dot is one six-month window: the setting that looked best in training, and how it
+      did next. If training predicted the future, the dots would sit along the dashed line.</figcaption>
+  </figure>
+  <p>Mostly not. The chosen settings averaged a Sharpe of 0.7–1.1 in training but 0.25–0.6 afterwards,
+     and a setting's rank in training said almost nothing about its rank next (rank correlation ≈ 0).
+     The plain, untuned 20/50-day crossover (Sharpe 0.77) beat the tuned version (0.52). Tuning mostly
+     fitted noise.</p>
+</section>
+
+<section class="prose">
+  <h2>Checks</h2>
+  <ul>
+    <li><b>Two independent engines.</b> A fast vectorised backtester, which runs the whole price history
+        at once, and a day-by-day account simulator with commission and slippage. They rank the
+        strategies the same way.</li>
+    <li><b>Costs.</b> The ranking is the same at zero, 0.15% and 0.30% per side.</li>
+    <li><b>Timing.</b> The moving-average result depends on when you trade: acting one day later cuts its
+        Sharpe from 0.52 to 0.38. Momentum barely moves (0.97).</li>
+  </ul>
+</section>
+
+<section class="prose">
+  <h2>What I got wrong along the way</h2>
+  <ul>
+    <li><b>Annualising with 252 days.</b> That's the stock-market year; Bitcoin trades all 365 days, so
+        every annualised figure was understated.</li>
+    <li><b>A win rate above 100%.</b> Winning short days were counted, but divided by long days only.</li>
+    <li><b>Indicators warming up inside each test window.</b> A 100-day average computed on a six-month
+        slice never had enough data, so the strategy barely traded out of sample. Indicators now use the
+        full history before being sliced.</li>
+    <li><b>No costs in the fast backtester.</b> It now charges on every change of position.</li>
+  </ul>
+</section>
+
+<section class="prose">
+  <h2>Limits</h2>
+  <p>One asset, daily prices, no shorting, a fixed cost assumption and one market history. Three
+     strategies were tested, so some apparent edge is expected by chance alone.</p>
+  <p><a href="https://github.com/louishatt0n/algotrading_learner" target="_blank" rel="noopener">Code and full results on GitHub</a></p>
+</section>
+
+</main>
+</body>
+</html>

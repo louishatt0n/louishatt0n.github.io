@@ -4,65 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Louis Hatton</title>
-<meta name="description" content="Research analyst in London. Python, trading research and computational chemistry.">
+<meta name="description" content="Research analyst in London. Projects on telling an edge from luck: poker variance, Bitcoin strategy testing and self-improving research agents.">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="Louis Hatton">
-<meta property="og:description" content="Python, trading research and computational chemistry.">
+<meta property="og:description" content="Projects on telling an edge from luck: poker variance, Bitcoin strategy testing and self-improving research agents.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0b0b'/><text y='.92em' x='.14em' font-size='76' fill='%2300e07a' font-family='monospace'>L</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0b0b0b; --fg:#e6e8e7; --muted:#8b928f; --line:#222522;
-  --green:#00e07a; --yellow:#ffd400;
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-}
-*{box-sizing:border-box}
-body{
-  margin:0; background:var(--bg); color:var(--fg);
-  font-family:var(--mono); font-size:14.5px; line-height:1.7;
-  -webkit-font-smoothing:antialiased;
-}
-main{max-width:720px; margin:0 auto; padding:72px 26px 96px}
-a{color:var(--green); text-decoration:none; border-bottom:1px solid #1d4433}
-a:hover{border-bottom-color:var(--green)}
-
-h1{font-size:26px; font-weight:700; letter-spacing:-.01em; margin:0 0 6px; color:#fff}
-.intro{color:var(--muted); margin:0}
-.intro + .intro{margin-top:15px}
-.intro b{color:var(--fg); font-weight:500}
-
-h2{
-  font-size:12px; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--green); margin:0 0 26px;
-}
-section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
-
-.item{margin-bottom:30px}
-.item:last-child{margin-bottom:0}
-.item h3{font-size:15px; font-weight:500; margin:0 0 4px; color:#fff}
-.item p{margin:0; color:var(--muted)}
-.res{color:var(--yellow); margin-top:5px!important}
-
-.meta{
-  display:flex; justify-content:space-between; gap:18px; align-items:baseline;
-  margin-bottom:20px; flex-wrap:wrap;
-}
-.meta .org{font-size:15px; color:#fff; font-weight:500}
-.meta .when{font-size:12.5px; color:var(--muted); letter-spacing:.06em; white-space:nowrap}
-
-.row{display:grid; grid-template-columns:118px 1fr; gap:20px; margin-bottom:11px}
-.row:last-child{margin-bottom:0}
-.row .k{color:var(--muted); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase}
-
-.links{display:flex; gap:26px; flex-wrap:wrap; margin-top:18px}
-
-@media(max-width:560px){
-  main{padding:52px 22px 72px}
-  .row{grid-template-columns:1fr; gap:3px; margin-bottom:16px}
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main>
@@ -72,11 +22,8 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
   Research analyst in London. Oxford <b>MChem Chemistry</b>.
 </p>
 <p class="intro">
-  I am obsessed with using my Chemistry degree to tackle the biggest problems: breaking a system down,
-  working out what governs it, then building the tool to act upon it. That has run from
-  <b>DFT and Monte Carlo structure determination</b> on a supercomputing cluster, to
-  <b>smart contracts</b> for a capital markets protocol, to
-  <b>Python services and trading research</b> for a FinTech.
+  I like problems where you make a call with incomplete information, then find out whether you
+  were right or just lucky. Three projects where I tried to tell the difference.
 </p>
 <div class="links">
   <a href="https://www.linkedin.com/in/louishatton/" target="_blank" rel="noopener">LinkedIn</a>
@@ -84,170 +31,67 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
 </div>
 
 <section>
-  <h2>Stack</h2>
-  <div class="row"><div class="k">Languages</div><div>Python, SQL, Bash, LaTeX</div></div>
-  <div class="row"><div class="k">Quant</div><div>Probability, statistics, bootstrap, event studies, backtesting</div></div>
-  <div class="row"><div class="k">Libraries</div><div>pandas, NumPy, SciPy, Matplotlib, pytest</div></div>
-  <div class="row"><div class="k">Data</div><div>PostgreSQL, Alembic, Kafka</div></div>
-  <div class="row"><div class="k">Infra</div><div>Unix, Docker, Git, GitLab CI/CD</div></div>
-  <div class="row"><div class="k">AI</div><div>LLM agents (Anthropic, OpenAI, Gemini APIs), Modal</div></div>
-  <div class="row"><div class="k">Scientific</div><div>DFT, electronic structure, Monte Carlo, symmetry-reduced enumeration</div></div>
-</section>
+  <h2>Projects</h2>
 
-<section>
-  <h2>Research — Computational Chemistry</h2>
-  <div class="meta">
-    <span class="org">ASPIRE Scholar, Kyoto University</span>
+  <div class="item">
+    <h3><a href="poker.html">Is my poker win rate real?</a></h3>
+    <p>74,000 hands at 4.81 big blinds per 100 looks like a winning player. An interactive look at
+       how many hands it takes before a result like that stops being luck.</p>
+    <p class="res">Not yet: at typical variance, ruling out break-even takes about 135,000 hands.</p>
   </div>
 
   <div class="item">
-    <h3>Structure determination of a partially occupied silver site</h3>
-    <p>Generated candidate superstructures by Monte Carlo sampling with symmetry-reduced
-       enumeration across supercells.</p>
-    <p class="res">Produced an energy-ranked candidate set and a determined unit cell.</p>
+    <h3><a href="backtester.html">Testing Bitcoin strategies out of sample</a></h3>
+    <p>Two backtesters built from scratch and a walk-forward test, where every strategy is tuned on
+       the past and judged only on data it has never seen.</p>
+    <p class="res">Momentum matched holding Bitcoin with a smaller worst fall, but the edge can't yet
+       be told apart from luck.</p>
   </div>
 
   <div class="item">
-    <h3>DFT workflow benchmarking</h3>
-    <p>Systematically varied lattice parameters, k-point density and energy cut-offs to test
-       convergence against known unit cells.</p>
-    <p class="res">Validated parameter set adopted for production runs.</p>
-  </div>
-
-  <div class="item">
-    <h3>Automated simulation pipelines</h3>
-    <p>Wrote Python pipelines in a Unix environment automating input generation, batch job
-       submission and output parsing.</p>
-    <p class="res">Energy profile diagrams built from thousands of data points.</p>
-  </div>
-
-  <div class="item">
-    <h3>Electronic structure analysis</h3>
-    <p>Computed density of states and band dispersion across candidate orderings.</p>
-    <p class="res">Quantified how silver-site ordering shifts the bandgap.</p>
+    <h3><a href="agents.html">Self-improving research agents</a></h3>
+    <p>Winner, Auto-Research Track, London AI x Science Hackathon. AI agents that write, test and
+       improve their own algorithms, scored by a judge they can't tamper with.</p>
+    <p class="res">Quantum circuits needing 50% fewer two-qubit gates than a published rival system.</p>
   </div>
 </section>
 
 <section>
-  <h2>Markets &amp; Engineering — Intropic</h2>
-  <div class="meta">
-    <span class="org">Research Analyst, Corporate Actions</span>
+  <h2>Experience</h2>
+
+  <div class="item">
+    <div class="meta">
+      <span class="org">Intropic</span>
+      <span class="when">Apr 2026 – now</span>
+    </div>
+    <p>Research Analyst, Corporate Actions. Forecasting the trades index funds are forced to make
+       around mergers, IPOs and share offerings, and building the Python services behind them.</p>
   </div>
 
   <div class="item">
-    <h3>Automated share-offering detection</h3>
-    <p>Led a Python service from design to deployment: Postgres schema design, Alembic migrations
-       for versioned rollout, an LLM classifier for company filings and a Kafka consumer,
-       containerised and released through GitLab CI/CD to staging.</p>
-    <p class="res">Cut the alerts analysts would need to check by 84% in testing.</p>
+    <div class="meta">
+      <span class="org">BlockScale</span>
+      <span class="when">Oct 2024 – Jun 2025</span>
+    </div>
+    <p>Founder &amp; Engineer, Oxford University Innovation Incubator. Wrote the smart contracts for a
+       capital markets protocol built for emerging economies; reached the Incubator final.</p>
   </div>
 
   <div class="item">
-    <h3>Event-study compute engine</h3>
-    <p>Batch processing over 163,000 daily price records spanning 863 events — clustered
-       grouping, resampling and placebo-window generation, written in pandas and NumPy.</p>
-    <p class="res">A pre-registered study of how forced index-fund trading moves prices around mergers.</p>
-  </div>
-
-  <div class="item">
-    <h3>Strategy backtesting</h3>
-    <p>Designed and directed backtests of event-driven trading strategies around share offerings:
-       pre-registered plans, position caps, realistic trading costs and capacity limits.</p>
-    <p class="res">Built-in checks that every trade could actually have been placed at the time.</p>
-  </div>
-
-  <div class="item">
-    <h3>Numerical fitting and testing module</h3>
-    <p>Reusable Python code for model calibration and validation: SciPy L-BFGS-B optimisation
-       in log space, size-stratified regimes, bootstrap resampling and FDR correction across
-       six independent test frameworks.</p>
-    <p class="res">Used to model how trading volume dies down after large US IPOs.</p>
+    <div class="meta">
+      <span class="org">Kyoto University</span>
+      <span class="when">2025</span>
+    </div>
+    <p>ASPIRE Scholar, computational chemistry. Determined a crystal structure with Monte Carlo
+       sampling and DFT simulations on a supercomputing cluster.</p>
   </div>
 </section>
 
 <section>
-  <h2>Personal Project — Bitcoin Backtester</h2>
-  <div class="meta">
-    <span class="org">Trading research in Python</span>
-    <span class="when">2026</span>
-  </div>
-
-  <div class="item">
-    <h3>Two backtesting engines</h3>
-    <p>A fast vectorised backtester and a day-by-day account simulator with commission and
-       slippage, run side by side on momentum, moving-average and mean-reversion strategies.</p>
-    <p class="res">Both engines agree on the ranking, and the results hold from zero to double the assumed costs.</p>
-  </div>
-
-  <div class="item">
-    <h3>Walk-forward out-of-sample test</h3>
-    <p>Every six months each strategy re-tunes on the previous two years, then trades the next
-       six months it has never seen: 2020 to 2026, after 0.15% costs per side, with the test
-       plan committed before the first run.</p>
-    <p class="res">Momentum matched holding Bitcoin's return with a smaller worst fall (−60% vs −77%)
-       and a higher Sharpe (0.89 vs 0.59), though a bootstrap confidence interval shows the edge
-       is not yet distinguishable from luck.</p>
-  </div>
-
-  <div class="item">
-    <h3>Testing the tuning itself</h3>
-    <p>Compared each setting's rank in training with its rank out of sample.</p>
-    <p class="res">Almost no link between the two: tuning mostly fitted noise, and the untuned
-       20/50 crossover beat the tuned one.</p>
-    <p><a href="https://github.com/louishatt0n/algotrading_learner" target="_blank" rel="noopener">Code</a></p>
-  </div>
-</section>
-
-<section>
-  <h2>Competition — London AI x Science Hackathon</h2>
-  <div class="meta">
-    <span class="org">Winner, Auto-Research Track</span>
-    <span class="when">Oct 2026</span>
-  </div>
-
-  <div class="item">
-    <h3>Self-improving research agents</h3>
-    <p>Team of three, three days; I wrote 49 of the 68 commits. AI agents that write, test and
-       improve their own code, with parallel evolutionary search and an LLM step that merges the
-       strongest ideas across searches.</p>
-    <p class="res">Found quantum circuits needing 50% fewer gates than a published rival system.</p>
-    <p><a href="https://github.com/Geno20261003/aixscience_hackathon" target="_blank" rel="noopener">Code</a></p>
-  </div>
-</section>
-
-<section>
-  <h2>Founding — BlockScale</h2>
-  <div class="meta">
-    <span class="org">Founder &amp; Engineer, Oxford University Innovation Incubator</span>
-    <span class="when">Oct 2024 – Jun 2025</span>
-  </div>
-
-  <div class="item">
-    <h3>Decentralised capital markets architecture</h3>
-    <p>Designed and coded the on-chain layer of a capital markets architecture built for
-       emerging economies — writing the smart contracts that carry the settlement logic.</p>
-  </div>
-
-  <div class="item">
-    <h3>Customer discovery and business model validation</h3>
-    <p>Established the underlying customer pain points in emerging-market capital access and
-       validated the business model against them.</p>
-  </div>
-
-  <div class="item">
-    <h3>Team and fundraising</h3>
-    <p>Recruited a co-founder, approached five investors and pitched to a panel of four
-       advisors.</p>
-    <p class="res">Selected to compete in the Incubator final for a £10,000 grant.</p>
-  </div>
-</section>
-
-<section>
-  <h2>Hobbies</h2>
-  <div class="row"><div class="k">Chess</div><div>97th percentile on Chess.com</div></div>
-  <div class="row"><div class="k">Poker</div><div>President, St Hugh's Poker Society; online, 4.81 big blinds per 100 hands over 74k tracked hands</div></div>
-  <div class="row"><div class="k">Skiing</div><div>Level 9 advanced</div></div>
-  <div class="row"><div class="k">Languages</div><div>French (B1)</div></div>
+  <h2>Elsewhere</h2>
+  <p class="intro">
+    Chess (97th percentile on Chess.com), skiing, French (B1). President of St Hugh's Poker Society.
+  </p>
 </section>
 
 </main>
