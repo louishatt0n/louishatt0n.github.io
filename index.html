@@ -166,6 +166,39 @@ section{margin-top:56px; padding-top:34px; border-top:1px solid var(--line)}
 </section>
 
 <section>
+  <h2>Personal Project — Bitcoin Backtester</h2>
+  <div class="meta">
+    <span class="org">Trading research in Python</span>
+    <span class="when">2026</span>
+  </div>
+
+  <div class="item">
+    <h3>Two backtesting engines</h3>
+    <p>A fast vectorised backtester and a day-by-day account simulator with commission and
+       slippage, run side by side on momentum, moving-average and mean-reversion strategies.</p>
+    <p class="res">Both engines agree on the ranking, and the results hold from zero to double the assumed costs.</p>
+  </div>
+
+  <div class="item">
+    <h3>Walk-forward out-of-sample test</h3>
+    <p>Every six months each strategy re-tunes on the previous two years, then trades the next
+       six months it has never seen: 2020 to 2026, after 0.15% costs per side, with the test
+       plan committed before the first run.</p>
+    <p class="res">Momentum matched holding Bitcoin's return with a smaller worst fall (−60% vs −77%)
+       and a higher Sharpe (0.89 vs 0.59), though a bootstrap confidence interval shows the edge
+       is not yet distinguishable from luck.</p>
+  </div>
+
+  <div class="item">
+    <h3>Testing the tuning itself</h3>
+    <p>Compared each setting's rank in training with its rank out of sample.</p>
+    <p class="res">Almost no link between the two: tuning mostly fitted noise, and the untuned
+       20/50 crossover beat the tuned one.</p>
+    <p><a href="https://github.com/louishatt0n/algotrading_learner" target="_blank" rel="noopener">Code</a></p>
+  </div>
+</section>
+
+<section>
   <h2>Competition — London AI x Science Hackathon</h2>
   <div class="meta">
     <span class="org">Winner, Auto-Research Track</span>
