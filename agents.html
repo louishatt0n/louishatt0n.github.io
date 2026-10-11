@@ -6,6 +6,15 @@
 <title>Research Agents — Louis Hatton</title>
 <meta name="description" content="Winner, Auto-Research Track, London AI x Science Hackathon: AI agents that write, test and improve their own algorithms.">
 <meta name="color-scheme" content="dark">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://louishatt0n.github.io/agents.html">
+<meta property="og:title" content="Research Agents — Louis Hatton">
+<meta property="og:description" content="Winner, Auto-Research Track, London AI x Science Hackathon: AI agents that write, test and improve their own algorithms.">
+<meta property="og:image" content="https://louishatt0n.github.io/img/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Louis Hatton: self-improving research agents, testing Bitcoin strategies out of sample, and whether a poker win rate is real">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230b0b0b'/><text y='.92em' x='.14em' font-size='76' fill='%2300e07a' font-family='monospace'>L</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,6 +54,29 @@
 
 <section class="prose">
   <h2>How it works</h2>
+  <figure class="flow" aria-label="Diagram of the research loop">
+    <div class="step"><b>Fix the rules</b><span>freeze the problem, fingerprint the judge</span></div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="step"><b>Start from what's known</b><span>seed programs from published approaches</span></div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="loop">
+      <div class="loop-tag">↻ Repeated every round</div>
+      <div class="islands">
+        <div class="island"><b>island</b><span>propose</span><span>score</span><span>keep</span></div>
+        <div class="island"><b>island</b><span>propose</span><span>score</span><span>keep</span></div>
+        <div class="island"><b>island</b><span>propose</span><span>score</span><span>keep</span></div>
+      </div>
+      <p class="note">a bandit picks which AI model each island calls</p>
+      <div class="arrow" aria-hidden="true">↓</div>
+      <div class="step"><b>Cross-pollinate</b><span>merge the leader with rivals that beat it</span></div>
+      <div class="arrow" aria-hidden="true">↓</div>
+      <div class="step"><b>Keep variety</b><span>survivors that are good in different ways</span></div>
+    </div>
+    <div class="arrow" aria-hidden="true">↓</div>
+    <div class="step final"><b>Sealed test, scored once</b><span>then written up</span></div>
+    <figcaption>The loop. Each island evolves its own line of programs; every round the best ideas are
+      shared and a varied set survives. Only the finalists ever meet the sealed test.</figcaption>
+  </figure>
   <ol>
     <li><b>Fix the rules first.</b> Before any search, the problem and its scoring are frozen, and the
         judge's code is fingerprinted. If the scoring changes mid-run, the run stops.</li>
@@ -82,6 +114,11 @@
         the problem from my <a href="backtester.html">Bitcoin strategy test</a> again: a search that
         sees its own test set will fit noise.</li>
   </ul>
+  <div class="split" aria-label="How the test cases are split">
+    <div class="part dev"><b>Development</b><span>small grids</span><span>agents see these scores</span></div>
+    <div class="part val"><b>Validation</b><span>a larger hidden grid</span><span>picks the survivors</span></div>
+    <div class="part test"><b>Sealed test</b><span>the largest grid</span><span>scored once, at the end</span></div>
+  </div>
   <p>We also built a neutral judge to compare our system with open-source rivals on unseen cases,
      reporting confidence intervals rather than single best scores.</p>
 </section>

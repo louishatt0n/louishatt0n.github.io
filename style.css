@@ -106,3 +106,28 @@ button:hover{border-color:var(--green)}
   .inputs{grid-template-columns:1fr}
   .tool{padding:16px}
 }
+
+/* diagrams */
+.flow{margin:24px 0 28px; display:flex; flex-direction:column}
+.flow .step{border:1px solid var(--line); background:var(--field); border-radius:6px; padding:10px 14px; text-align:center}
+.flow b{display:block; color:#fff; font-weight:500; font-size:13.5px; line-height:1.5}
+.flow span{display:block; color:var(--muted); font-size:12px; line-height:1.5}
+.flow .arrow{color:var(--muted); text-align:center; line-height:1; padding:7px 0; font-size:14px}
+.flow .loop{border:1px dashed #1d4433; border-radius:8px; padding:12px}
+.flow .loop-tag{font-size:11px; color:var(--green); letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px}
+.flow .islands{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.flow .island{border:1px solid #1d4433; border-radius:6px; padding:8px 6px; text-align:center}
+.flow .island b{color:var(--green); font-size:12.5px}
+.flow .note{font-size:12px; color:var(--muted); text-align:center; margin:9px 0 0; line-height:1.5}
+.flow .final{border-color:#4d4300}
+.flow .final b{color:var(--yellow)}
+.flow figcaption{margin-top:12px}
+
+.split{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:22px 0}
+.part{border:1px solid var(--line); border-radius:6px; padding:10px 12px}
+.part b{display:block; font-weight:500; font-size:13px}
+.part span{display:block; color:var(--muted); font-size:12px; line-height:1.55}
+.part.dev b{color:var(--green)}
+.part.val b{color:var(--fg)}
+.part.test b{color:var(--yellow)}
+@media(max-width:560px){ .split{grid-template-columns:1fr} }
